@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Grocery Management</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .neu-brutal {
+            box-shadow: 4px 4px 0 0 #000;
+            border: 2px solid #000;
+        }
+        .neu-brutal:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0 0 #000;
+        }
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-blue-50">
+    <nav class="bg-white neu-brutal m-4 p-4">
+        <div class="flex flex-wrap justify-between items-center">
+            <h1 class="text-2xl font-bold">Grocery Manager</h1>
+            <div class="space-x-2" id="nav-buttons">
+                <a href="{% url 'dash' %}">
+                    <button class="neu-brutal px-4 py-2 bg-yellow-200 active" data-page="dashboard">Dashboard</button>
+                </a>
+                <a href="{% url 'cust' %}">
+                    <button class="neu-brutal px-4 py-2 bg-green-200" data-page="customers">Customers</button>
+                </a>
+                <a href="{% url 'product' %}">
+                    <button class="neu-brutal px-4 py-2 bg-blue-200" data-page="products">Products</button>
+                </a>
+                <a href="{% url 'order' %}">
+                    <button class="neu-brutal px-4 py-2 bg-pink-200" data-page="orders">Orders</button>
+                </a>
+                {%if request.user.is_authenticated%}
+                    <a href="{% url 'logout' %}">
+                        <button class="neu-brutal px-4 py-2 bg-pink-200" data-page="orders">LogOut</button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'log' %}">
+                        <button class="neu-brutal px-4 py-2 bg-pink-200" data-page="orders">LogIN</button>
+                    </a>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4">
+    </main>
+</body>
+</html>

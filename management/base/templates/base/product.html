@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="neu-brutal p-4 bg-white mb-4">
+    <h2 class="text-xl font-bold mb-4">Add Product</h2>
+    <form id="productForm" class="grid grid-cols-1 md:grid-cols-4 gap-4" method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Name" class="neu-brutal p-2" required>
+        <input type="number" name="price" placeholder="Price" class="neu-brutal p-2" required>
+        <input type="number" name="stock" placeholder="Stock" class="neu-brutal p-2" required>
+        <button type="submit" class="neu-brutal bg-blue-200 p-2">Add Product</button>
+    </form>
+</div>
+
+<div class="neu-brutal p-4 bg-white">
+    <h2 class="text-xl font-bold mb-4">Product List</h2>
+    <div class="table-container">
+        <table class="table-auto w-full border-collapse border border-black">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-black px-4 py-2">Product Name</th>
+                    <th class="border border-black px-4 py-2">Price</th>
+                    <th class="border border-black px-4 py-2">Stock</th>
+                    <th class="border border-black px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in prod %}
+                <tr>
+                    <td class="border border-black px-4 py-2">{{ product.name }}</td>
+                    <td class="border border-black px-4 py-2">{{ product.price }}</td>
+                    <td class="border border-black px-4 py-2">{{ product.stock }}</td>
+                    <td class="border border-black px-4 py-2">
+                      
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-2">No products found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

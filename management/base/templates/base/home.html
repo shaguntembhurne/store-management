@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Grocery Management</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .neu-brutal {
+            box-shadow: 4px 4px 0 0 #000;
+            border: 2px solid #000;
+        }
+        .neu-brutal:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0 0 #000;
+        }
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-blue-50">
+    <nav class="bg-white neu-brutal m-4 p-4">
+        <div class="flex flex-wrap justify-between items-center">
+            <h1 class="text-2xl font-bold">Grocery Manager</h1>
+            <div class="space-x-2" id="nav-buttons">
+                <button class="neu-brutal px-4 py-2 bg-yellow-200 active" data-page="dashboard">Dashboard</button>
+                <button class="neu-brutal px-4 py-2 bg-green-200" data-page="customers">Customers</button>
+                <button class="neu-brutal px-4 py-2 bg-blue-200" data-page="products">Products</button>
+                <button class="neu-brutal px-4 py-2 bg-pink-200" data-page="orders">Orders</button>
+                {%if request.user.is_authenticated%}
+                    <a href="{% url 'logout' %}">
+                        <button class="neu-brutal px-4 py-2 bg-pink-200" data-page="orders">LogOut</button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'log' %}">
+                        <button class="neu-brutal px-4 py-2 bg-pink-200" data-page="orders">LogIN</button>
+                    </a>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4">
+        <!-- Dashboard -->
+        <section id="dashboard" class="page active">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="neu-brutal p-6 bg-yellow-200">
+                    <h3 class="text-xl font-bold">Total Customers</h3>
+                    <p class="text-3xl mt-2" id="customerCount">0</p>
+                </div>
+                <div class="neu-brutal p-6 bg-green-200">
+                    <h3 class="text-xl font-bold">Total Products</h3>
+                    <p class="text-3xl mt-2" id="productCount">0</p>
+                </div>
+                <div class="neu-brutal p-6 bg-pink-200">
+                    <h3 class="text-xl font-bold">Total Orders</h3>
+                    <p class="text-3xl mt-2" id="orderCount">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customers -->
+        <section id="customers" class="page hidden">
+            <div class="neu-brutal p-4 bg-white mb-4">
+                <h2 class="text-xl font-bold mb-4">Add Customer</h2>
+                <form id="customerForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" placeholder="Name" class="neu-brutal p-2" required>
+                    <input type="email" placeholder="Email" class="neu-brutal p-2" required>
+                    <input type="tel" placeholder="Phone" class="neu-brutal p-2" required>
+                    <button type="submit" class="neu-brutal bg-green-200 p-2">Add Customer</button>
+                </form>
+            </div>
+        </section>
+        
+        <header class="flex justify-between items-center bg-white p-4 neu-brutal">
+
+        
+        <!-- Products -->
+        <section id="products" class="page hidden">
+            <div class="neu-brutal p-4 bg-white mb-4">
+                <h2 class="text-xl font-bold mb-4">Add Product</h2>
+                <form id="productForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <input type="text" placeholder="Name" class="neu-brutal p-2" required>
+                    <input type="number" placeholder="Price" class="neu-brutal p-2" required>
+                    <input type="number" placeholder="Stock" class="neu-brutal p-2" required>
+                    <button type="submit" class="neu-brutal bg-blue-200 p-2">Add Product</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Orders -->
+        <section id="orders" class="page hidden">
+            <div class="neu-brutal p-4 bg-white mb-4">
+                <h2 class="text-xl font-bold mb-4">Create Order</h2>
+                <form id="orderForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <select id="customerSelect" class="neu-brutal p-2" required>
+                        <option value="">Select Customer</option>
+                    </select>
+                    <select id="productSelect" class="neu-brutal p-2" required>
+                        <option value="">Select Product</option>
+                    </select>
+                    <input type="number" placeholder="Quantity" class="neu-brutal p-2" required>
+                    <button type="submit" class="neu-brutal bg-pink-200 p-2">Create Order</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation
+        document.getElementById('nav-buttons').addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
+                document.getElementById(e.target.dataset.page).classList.remove('hidden');
+                document.querySelectorAll('#nav-buttons button').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        });
+
+        // Placeholder for Django backend data handling
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% block content %}
+
+
+<!-- Dashboard -->
+        <section id="dashboard" class="page active">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="neu-brutal p-6 bg-yellow-200">
+                    <h3 class="text-xl font-bold">Total Customers</h3>
+                    <p class="text-3xl mt-2" id="customerCount">0</p>
+                </div>
+                <div class="neu-brutal p-6 bg-green-200">
+                    <h3 class="text-xl font-bold">Total Products</h3>
+                    <p class="text-3xl mt-2" id="productCount">0</p>
+                </div>
+                <div class="neu-brutal p-6 bg-pink-200">
+                    <h3 class="text-xl font-bold">Total Orders</h3>
+                    <p class="text-3xl mt-2" id="orderCount">0</p>
+                </div>
+            </div>
+        </section>
+{% endblock %}
